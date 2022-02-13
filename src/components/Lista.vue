@@ -15,13 +15,17 @@
 
     Indicadores:
     <ul>
-        <li v-if="placeholder">LISTA VAZIA</li>
-        <li v-if="placeholder">MAIS DE 5 ELEMENTOS</li>
+        <li v-if="!lista">LISTA VAZIA</li>
+        <li v-if="lista.length > 5">MAIS DE 5 ELEMENTOS</li>
         <li v-if="placeholder">UMA OU MAIS ENTRADAS NÃO RESPEITA O FORMATO</li>
     </ul>
 
     <div class="entradas">
         <div class="entrada" v-for="i in lista" v-bind:key="i">
+            <div class="mb">
+                <input :value="i.op1">
+                <input :value="i.op2">
+            </div>
         </div>
     </div>
 
@@ -39,7 +43,7 @@
         },
         data() {
             return {
-                lista: [""] // deve representar a lista dada
+                lista: this.dados // deve representar a lista dada
             };
         },
         watch: {},
@@ -48,6 +52,7 @@
         },
         methods: {
             update() {
+                
             }
         }
     }
@@ -83,5 +88,9 @@
 
  .json-example > code {
      font-family: "Courier New", monospace !important;
+ }
+
+ .mb {
+     margin-bottom: 5px;
  }
 </style>
