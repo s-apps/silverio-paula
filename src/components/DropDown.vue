@@ -64,11 +64,9 @@
      padding: 5px;
  }
 
- .down {  }
-
+ 
  .selecionada {
      font-weight: bold;
  }
 
- .opcoes {  }
-</style>
+ </style>
