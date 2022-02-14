@@ -5,9 +5,9 @@
     de replicar as funcionalidades neles pedidas. Seu código deve contemplar todas as
     funcionalidades requisitadas, bem como as mudanças visuais a fim de tornar a página esteticamente mais agradável e adequada a experiência do usuário.
   </div>
-  <Senha />
-  <DropDown ref="dd" :opcoesDD="opcoesSelect" />
-  <Lista :dados="dadosLista" @mudancaEmitida="mudancaLista" />
+  <div class="content"><Senha /></div>
+  <div class="content"><DropDown ref="dd" :opcoesDD="opcoesSelect" /></div>
+  <div class="content"><Lista :dados="dadosLista" @mudancaEmitida="mudancaLista" /></div>
   <br />
   <div class="info msg">
     Em caso de dúvida entre em contato pelo email <a href="mailto:mardt@usp.br">mardt@usp.br</a>.
@@ -53,9 +53,11 @@
       };
     },
     methods: {
-      mudancaLista() {
+      mudancaLista(lista) {
         console.log('Lista recebida!')
         // Exiba a lista editada
+        this.dadosLista = lista;
+        console.log('dadosLista',this.dadosLista);
       }
     },
     mounted() {
@@ -103,5 +105,15 @@
 
  .msg {
    text-align: center;
+ }
+
+ .content {
+   width:800px;
+   margin-left: auto;
+   margin-right: auto;
+   background-color: #ededed;
+   padding: 20px;
+   border-radius: 10px;
+   margin-bottom: 20px;
  }
 </style>

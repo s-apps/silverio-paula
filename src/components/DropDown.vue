@@ -10,9 +10,15 @@
         para leitura pelo componente pai.
     </div>
 
-    <div class="dropdown" :class="{'down': estado}"> {{ opcaoSelecionada }} ⬇ </div>
+    <!--<div class="dropdown" :class="{'down': estado}"> {{ opcaoSelecionada }} ⬇ </div>-->
+
+    <select class="dropdown" :class="{'down': estado}" @change="setOpcaoSelecionada($event, $event.target.selectedIndex)">
+        <option v-for="opcao in opcoesDD" v-bind:key="opcao">{{ opcao }}</option>
+    </select>
+
     <ul :class="{'opcoes': estado}">
         <!-- OPÇÕES PASSADAS (INDICANDO A ATUAL SELECIONADA) -->
+        <li v-for="opc in opcoesSelecionadas" v-bind:key="opc" :class="{'selecionada': opc == opcaoSelecionada}">{{ opc }}</li>
     </ul>
 </template>
 
@@ -24,7 +30,8 @@
         },
         data() {
             return {
-                opcaoSelecionada: "..."
+                opcaoSelecionada: this.opcoesDD[0],
+                opcoesSelecionadas: []
             };
         },
         computed: {
@@ -32,6 +39,17 @@
         },
         methods: {
             // Permitir ler dados...
+            setOpcaoSelecionada(event, selectedIndex){
+                this.opcaoSelecionada = event.target.value;
+                this.opcoesSelecionadas.push(event.target.value);
+                console.log('eve', event.target.value)
+                console.log('danger',selectedIndex)
+                const opcao = [{texto: event.target.value, idx: selectedIndex }];
+                this.sendToParent(opcao);
+            },
+            sendToParent(opcao){
+                this.$emit('opcaoSelecionada', opcao);
+            }
         },
         // Atualizar dados com opções passadas...
     }
@@ -47,6 +65,10 @@
  }
 
  .down {  }
+
+ .selecionada {
+     font-weight: bold;
+ }
 
  .opcoes {  }
 </style>

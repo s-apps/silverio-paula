@@ -17,14 +17,15 @@
     <ul>
         <li v-if="!lista">LISTA VAZIA</li>
         <li v-if="lista.length > 5">MAIS DE 5 ELEMENTOS</li>
-        <li v-if="placeholder">UMA OU MAIS ENTRADAS NÃO RESPEITA O FORMATO</li>
+        <li v-if="formatoInvalido">UMA OU MAIS ENTRADAS NÃO RESPEITA O FORMATO</li>
     </ul>
 
     <div class="entradas">
         <div class="entrada" v-for="i in lista" v-bind:key="i">
             <div class="mb">
-                <input :value="i.op1">
-                <input :value="i.op2">
+                <label>{{ i.id }}</label>
+                <input :value="i.op1" :id="i.op1">
+                <input :value="i.op2" :id="i.op2">
             </div>
         </div>
     </div>
@@ -38,7 +39,7 @@
         props: {
             dados: {
                 type: Array,
-                required: true
+                // required: true
             }
         },
         data() {
@@ -49,10 +50,24 @@
         watch: {},
         computed: {
             placeholder() { return true; },
+            formatoInvalido(){
+                for (let i = 0; i < this.lista.length; i++){
+                    if(this.lista[i].id === undefined || this.lista[i].op1 === undefined || this.lista[i].op2 === undefined){
+                        return true;
+                    }
+                }
+                return false;
+            }
         },
         methods: {
             update() {
-                
+                for (let i = 0; i < this.lista.length; i++){
+                    let op1 = document.getElementById(this.lista[i].op1);
+                    let op2 = document.getElementById(this.lista[i].op2);
+                    this.lista[i].op1 = op1.value;
+                    this.lista[i].op2 = op2.value;
+                }
+                this.$emit('mudancaEmitida', this.lista);
             }
         }
     }
