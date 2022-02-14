@@ -90,10 +90,6 @@
      width: 100%;
  }
 
- .entrada {
-     /* ... */
- }
-
  .json-example {
      font-style: normal;
      background-color: lightgrey;

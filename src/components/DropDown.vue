@@ -42,8 +42,6 @@
             setOpcaoSelecionada(event, selectedIndex){
                 this.opcaoSelecionada = event.target.value;
                 this.opcoesSelecionadas.push(event.target.value);
-                console.log('eve', event.target.value)
-                console.log('danger',selectedIndex)
                 const opcao = [{texto: event.target.value, idx: selectedIndex }];
                 this.sendToParent(opcao);
             },
